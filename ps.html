@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The second html page</title>
+    <style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+         ul li
+        {
+            list-style-type:georgian;
+            text-align:left;
+         }
+         body
+         {
+          
+           text-align:center;   
+           background-image: url("img/bg.jpg");
+           background-repeat:no-repeat ;
+           background-size:100% 100%; 
+           background-attachment: fixed;
+          }
+    
+       
+        .main
+        {
+            
+            height:800px;
+            text-align: center;
+            
+        }
+        
+        #container
+        {
+          padding: 50px;
+           
+           /* border:1px solid gray;*/
+            
+         }
+         .small
+         {
+             display:block;
+             border-bottom:1px solid gray;/*将缩略图，和大图隔开*/
+         }
+         .small img
+         {
+             width:150px;
+             height:120px;
+             margin:5px;
+             
+             padding:3px;
+         }
+         .mm
+         {
+             cursor:pointer;
+             border-radius:5px;/*鼠标移入样式*/
+             
+          }
+      
+          #btnLeft
+          {
+           margin-right: 100px;
+           padding: 10px;
+           background-color: pink;
+          
+          }
+           #btnRight
+          {
+          margin-left: 100px;
+          padding: 10px;
+           background-color: pink;
+
+           
+          }
+    </style>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //初始加载六张图片作为缩略图
+            for (var i = 0; i < 6; i++) {
+                var src = "img/" + "0" + (i + 1).toString() + ".jpg";
+                var img = $("<img />").attr("id", (i + 1).toString()).attr("alt", (i + 1).toString()).attr("src", src);
+                $("#small").append(img);
+            }
+            //设置缩略图的点击事件，以及鼠标移入，移出事件
+            $("#small img").click(function () {
+                $("#img").css("display", "none");
+                var src = $(this).attr("src");
+                var alt = $(this).attr("alt");
+                var nAlt = parseInt(alt);
+                $("#img").attr("alt", nAlt).attr("src", src).fadeIn(delay);
+            }).mouseover(function () {
+                $(this).addClass("mm");
+            }).mouseleave(function () {
+                $(this).removeClass("mm");
+            });
+            var delay = 800;
+            //向左切换事件
+            $("#btnLeft").click(function () {
+                $("#img").css("display", "none");
+                var alt = $("#img").attr("alt");
+                if (alt == "1") {
+                    alt = 7;
+                }
+                var nAlt = parseInt(alt) - 1;
+                var src = "img/" + "0" + nAlt.toString() + ".jpg";
+                $("#img").attr("alt", nAlt).attr("src", src).fadeIn(delay);
+            });
+            //向右切换事件
+            $("#btnRight").click(function () {
+                $("#img").css("display", "none");
+                var alt = $("#img").attr("alt");
+                if (alt == "6") {
+                    alt = 0;
+                }
+                var nAlt = parseInt(alt) + 1;
+                var src = "img/" + "0" + nAlt.toString() + ".jpg";
+                $("#img").attr("alt", nAlt).attr("src", src).fadeIn(delay);
+
+            });
+        });
+    </script>
+</head>
+<body>
+<iframe MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="head.html" height="auto" width="100%" name="ps"></iframe>
+
+<div style="width: 100%;text-align:center;">
+<section class="main">
+    <div class="small" id="small">
+    </div>
+    <div id="container">
+        <input type="button" id="btnLeft" value="<<" />
+        <img id="img" alt="1" src="img/01.jpg" width="750" height="500" style="vertical-align: middle;   " />
+        <input type="button" id="btnRight" value=">>" />
+    </div>
+</section>
+</div>
+
+</body>
+</html>
